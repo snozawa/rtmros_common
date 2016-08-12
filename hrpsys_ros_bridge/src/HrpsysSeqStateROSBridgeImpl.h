@@ -16,6 +16,14 @@
 #include <rtm/DataInPort.h>
 #include <rtm/DataOutPort.h>
 #include "hrpsys_ros_bridge/idl/HRPDataTypes.hh"
+#ifdef USE_SERIALIZEDSTATEDATA
+#include "hrpsys_ros_bridge/idl/RemoveForceSensorLinkOffsetService.hh"
+#include "hrpsys_ros_bridge/idl/AutoBalancerService.hh"
+#include "hrpsys_ros_bridge/idl/StabilizerService.hh"
+#warning "Use Serialized State Data"
+#else
+#warning "NOT Use Serialized State Data"
+#endif
 
 // hrp
 #include <hrpCorba/ModelLoader.hh>
@@ -147,6 +155,14 @@ class HrpsysSeqStateROSBridgeImpl  : public RTC::DataFlowComponentBase
   InPort<TimedBooleanSeq> m_refContactStatesIn, m_actContactStatesIn;
   TimedDoubleSeq m_controlSwingSupportTime;
   InPort<TimedDoubleSeq> m_controlSwingSupportTimeIn;
+#ifdef USE_SERIALIZEDSTATEDATA
+  OpenHRP::RemoveForceSensorLinkOffsetService::TimedSerializedStateData m_serializedStateDataRMFO;
+  InPort<OpenHRP::RemoveForceSensorLinkOffsetService::TimedSerializedStateData> m_serializedStateDataRMFOIn;
+  OpenHRP::AutoBalancerService::TimedSerializedStateData m_serializedStateDataABC;
+  InPort<OpenHRP::AutoBalancerService::TimedSerializedStateData> m_serializedStateDataABCIn;
+  OpenHRP::StabilizerService::TimedSerializedStateData m_serializedStateDataST;
+  InPort<OpenHRP::StabilizerService::TimedSerializedStateData> m_serializedStateDataSTIn;
+#endif
 
   // </rtc-template>
 

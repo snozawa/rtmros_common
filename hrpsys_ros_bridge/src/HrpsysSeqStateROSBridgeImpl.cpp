@@ -44,6 +44,11 @@ HrpsysSeqStateROSBridgeImpl::HrpsysSeqStateROSBridgeImpl(RTC::Manager* manager)
     m_refContactStatesIn("refContactStates", m_refContactStates),
     m_actContactStatesIn("actContactStates", m_actContactStates),
     m_controlSwingSupportTimeIn("controlSwingSupportTime", m_controlSwingSupportTime),
+#ifdef USE_SERIALIZEDSTATEDATA
+    m_serializedStateDataRMFOIn("serializedStateDataRMFO", m_serializedStateDataRMFO),
+    m_serializedStateDataABCIn("serializedStateDataABC", m_serializedStateDataABC),
+    m_serializedStateDataSTIn("serializedStateDataST", m_serializedStateDataST),
+#endif
     m_mctorqueOut("mctorque", m_mctorque),
     m_SequencePlayerServicePort("SequencePlayerService")
 
@@ -76,6 +81,11 @@ RTC::ReturnCode_t HrpsysSeqStateROSBridgeImpl::onInitialize()
   addInPort("refContactStates", m_refContactStatesIn);
   addInPort("actContactStates", m_actContactStatesIn);
   addInPort("controlSwingSupportTime", m_controlSwingSupportTimeIn);
+#ifdef USE_SERIALIZEDSTATEDATA
+  addInPort("serializedStateDataRMFO", m_serializedStateDataRMFOIn);
+  addInPort("serializedStateDataABC", m_serializedStateDataABCIn);
+  addInPort("serializedStateDataST", m_serializedStateDataSTIn);
+#endif
 
   // Set OutPort buffer
   addOutPort("mctorque", m_mctorqueOut);

@@ -108,8 +108,15 @@ rtmbuild_genbridge()
 ##
 # pr2_controller_msgs is not catkinized
 string(RANDOM _random_string)
-
 rtmbuild_add_executable(HrpsysSeqStateROSBridge src/HrpsysSeqStateROSBridgeImpl.cpp src/HrpsysSeqStateROSBridge.cpp src/HrpsysSeqStateROSBridgeComp.cpp)
+#execute_process(COMMAND bash -c "grep SerializedStateData ${hrpsys_PREFIX}/include/hrpsys/idl/AutoBalancerService.hh > /dev/null" RESULT_VARIABLE _serialized_data_grep_failed)
+execute_process(COMMAND bash -c "grep SerializedStateData ${hrpsys_PREFIX}/include/hrpsys/idl/AutoBalancerService.hh > /dev/null && grep SerializedStateData ${hrpsys_PREFIX}/include/hrpsys/idl/StabilizerService.hh > /dev/null && grep SerializedStateData ${hrpsys_PREFIX}/include/hrpsys/idl//RemoveForceSensorLinkOffsetService.hh > /dev/null" RESULT_VARIABLE _serialized_data_grep_failed)
+if(_serialized_data_grep_failed)
+  message("No SerializedStateData found")
+else()
+  message("SerializedStateData found")
+  target_compile_definitions(HrpsysSeqStateROSBridge PUBLIC USE_SERIALIZEDSTATEDATA)
+endif()
 rtmbuild_add_executable(ImageSensorROSBridge src/ImageSensorROSBridge.cpp src/ImageSensorROSBridgeComp.cpp)
 rtmbuild_add_executable(RangeSensorROSBridge src/RangeSensorROSBridge.cpp src/RangeSensorROSBridgeComp.cpp)
 rtmbuild_add_executable(PointCloudROSBridge src/PointCloudROSBridge.cpp src/PointCloudROSBridgeComp.cpp)
