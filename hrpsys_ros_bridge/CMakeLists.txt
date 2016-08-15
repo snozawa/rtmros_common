@@ -115,7 +115,11 @@ if(_serialized_data_grep_failed)
   message("No SerializedStateData found")
 else()
   message("SerializedStateData found")
-  target_compile_definitions(HrpsysSeqStateROSBridge PUBLIC USE_SERIALIZEDSTATEDATA)
+  #target_compile_definitions(HrpsysSeqStateROSBridge PUBLIC USE_SERIALIZEDSTATEDATA)
+  #target_compile_definitions(HrpsysSeqStateROSBridge PUBLIC USE_SERIALIZEDSTATEDATA)
+  set_target_properties(HrpsysSeqStateROSBridge
+    PROPERTIES
+    COMPILE_DEFINITIONS USE_SERIALIZEDSTATEDATA)
 endif()
 rtmbuild_add_executable(ImageSensorROSBridge src/ImageSensorROSBridge.cpp src/ImageSensorROSBridgeComp.cpp)
 rtmbuild_add_executable(RangeSensorROSBridge src/RangeSensorROSBridge.cpp src/RangeSensorROSBridgeComp.cpp)
