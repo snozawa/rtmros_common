@@ -7,6 +7,7 @@
   <arg name="USE_EMERGENCYSTOPPER" default="false" />
   <arg name="USE_REFERENCEFORCEUPDATER" default="false" />
   <arg name="USE_OBJECTCONTACTTURNAROUNDDETECTOR" default="false" />
+  <arg name="USE_MYCONTROLRTC" default="false" />
 
   <rosparam command="load"
             file="$(find @PROJECT_PKG_NAME@)/models/@ROBOT@_controller_config.yaml" />
@@ -29,6 +30,7 @@
     <arg name="USE_EMERGENCYSTOPPER" default="$(arg USE_EMERGENCYSTOPPER)" />
     <arg name="USE_REFERENCEFORCEUPDATER" default="$(arg USE_REFERENCEFORCEUPDATER)" />
     <arg name="USE_OBJECTCONTACTTURNAROUNDDETECTOR" default="$(arg USE_OBJECTCONTACTTURNAROUNDDETECTOR)" />
+    <arg name="USE_MYCONTROLRTC" default="$(arg USE_MYCONTROLRTC)" />
     <!-- END: development -->
     <arg name="ROBOT_TYPE" default="@robot@" if="$(arg USE_UNSTABLE_RTC)" />
     <arg name="USE_ROBOT_TYPE_SETTING" default="true" if="$(arg USE_UNSTABLE_RTC)" />
